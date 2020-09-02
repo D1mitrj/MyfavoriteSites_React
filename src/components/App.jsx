@@ -3,16 +3,32 @@ import React, { PureComponent } from 'react';
 import Formular from './Formular/Formular.jsx';
 import SearchSite from './SearchSite/searchSite.jsx';
 import List from './Liste/List.jsx';
-import './App.css';
+import './app.css';
 
 
 class App extends PureComponent {
+    constructor() {
+        super();
+        this.state = {
+            searchString: 'ahaus',
+        };
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.searchString);
+    }
+
     render() {
+        const { searchString } = this.state;
         return (
             <div>
                 <div className="Titel_texarea">
                     <h1>My favorite Sites</h1>
-                    <SearchSite/>
+                    <SearchSite
+                        setSearchString={
+                            (e) => this.setState({ searchString: e })
+                        }
+                    />
                 </div>
                 <p id="intro">
                     Willkommen bei den Lieblingsseiten. Hier siehst du welche Seiten
@@ -22,7 +38,7 @@ class App extends PureComponent {
                     <Formular/>
                 </div>
                 <div>
-                    <List/>
+                    <List searchString={searchString}/>
                 </div>
             </div>
         );

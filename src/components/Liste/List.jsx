@@ -10,61 +10,76 @@ class List extends React.Component {
             SiteName: '',
             isExpanded: false,
             siteList: [],
+            searchFilter: '',
+            listNotShown: [],
         };
         this.showless = this.showless.bind(this);
         this.showmore = this.showmore.bind(this);
+        this.SetState = this.SetState.bind(this);
     }
 
-    async componentDidMount() {
-        const { SiteName, Count } = this.state;
-        const searchedSite = SiteName;
+    componentDidMount() {
+        this.SetState();
+    }
 
-        let searchedSitefiltered = '';
-        if (searchedSite === '') {
-            searchedSitefiltered = 'Ahaus';
-        } else {
-            searchedSitefiltered = searchedSite;
+    componentDidUpdate() {
+        const { searchString } = this.props;
+        const { searchFilter } = this.state;
+
+        console.log(searchString);
+        if (searchString !== searchFilter) {
+            this.setState({ searchFilter: searchString });
+            this.SetState();
         }
+    }
 
-        this.setState({ Count: 1 });
+    async SetState(isShowmore) {
+        chayns.showWaitCursor();
+        const { searchString } = this.props;
+        const { Count } = this.state;
+
+        this.setState({siteList: [] });
+        // this.setState({ Count: 1 });
         try {
             // List of the sites.
             // eslint-disable-next-line max-len
-            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchedSitefiltered}&Skip=${20 * Count}&Take=20`);
+            const response = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchString}&Skip=0&Take=40`);
             const list = await response.json();
 
             console.log('list', list);
+            this.setState({ siteList: list.Data.slice(0, 20) });
+            this.setState({ listNotShown: list.Data.slice(20, 40) });
 
-            this.setState({ siteList: list.Data });
         } catch (error) {
             console.log('error');
             this.setState({ siteList: null });
         }
+        chayns.hideWaitCursor();
     }
 
     async showmore() {
-        this.setState({ isExpanded: true });
+        this.setState({
+            isExpanded: true,
+            Count: 1,
+        });
+        this.setState(prevState => {
+            return {
+                siteList: prevState.siteList.concat(this.state.listNotShown),
+            }
+        })
     }
 
     // show less
     async showless() {
-        const { SiteName, Count } = this.state;
-        const searchedSite = SiteName;
-
-        let searchedSitefiltered = '';
-        if (searchedSite === '') {
-            searchedSitefiltered = 'Ahaus';
-        } else {
-            searchedSitefiltered = searchedSite;
-        }
-
-        this.setState({ Count: 0 });
-        // List of the sites.
-        fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchedSitefiltered}&Skip=${20 * Count}&Take=20`)
-            .then((response) => response.json())
-            .then((data) => console.log(data.Data));
-
-        this.setState({ isExpanded: false });
+        this.setState({
+            isExpanded: false,
+            Count: 0,
+        });
+        this.setState(prevState => {
+            return {
+                siteList: prevState.siteList.splice(0, 20),
+            }
+        })
     }
 
 
@@ -78,8 +93,8 @@ class List extends React.Component {
                             ? (
                                 siteList.map((site) => (
                                     <div className="site">
-                                        <object data={`https://chayns.tobit.com/storage/${site.siteId}/Images/icon-57.png`} type="Image/png">
-                                            <img className="SiteImage" src="https://chayns.tobit.com/storage/77892-13928/Images/icon-57.png" alt="fail"/>
+                                        <object className="SiteImage" data={`https://chayns.tobit.com/storage/${site.siteId}/Images/icon-57.png`} type="Image/png">
+                                            <img className="SiteImage" src="https://chayns.tobit.com/storage/77892-13928/Images/icon-57.png" alt="fail" />
                                         </object>
                                         <p className="site__name">{`${site.appstoreName.substring(0, 8)}...`}</p>
                                     </div>

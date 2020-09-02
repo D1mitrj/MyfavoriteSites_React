@@ -17,9 +17,12 @@
 }
 .site{
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 .SiteImage{
-    align-self: center;
+    justify-self: center;
+    width: 70px
 }
 .buttonDiv{
     /* /* display: block; */
