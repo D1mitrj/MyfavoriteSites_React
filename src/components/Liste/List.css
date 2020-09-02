@@ -3,14 +3,31 @@
     padding: 10px 5px;
     display: flex;
     flex-direction: column; 
-    flex-wrap: wrap;
+    
 
     border: solid 1px #3c3c3c;
     background-color: #3c3c3c;
     box-shadow: 0px 3px 5px black;
     border-radius: 5px;
 }
+.sites{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.site{
+    padding: 5px;
+}
+.SiteImage{
+    align-self: center;
+}
 .buttonDiv{
     /* /* display: block; */
     margin: 0 auto 0 auto;
 } 
+.site__name {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    margin: 0 5px;
+  }
