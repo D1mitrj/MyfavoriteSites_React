@@ -14,10 +14,6 @@ class App extends PureComponent {
         };
     }
 
-    componentDidUpdate() {
-        console.log(this.state.searchString);
-    }
-
     render() {
         const { searchString } = this.state;
         return (
