@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Accordion, Input, Button, TextArea } from 'chayns-components';
 import './formular.css';
@@ -57,14 +58,14 @@ class Formular extends React.Component {
                         hier aufgeführt werden sollte.
                     </p>
                     <div className="input-group textInp">
-                        <Input className="input name" placeholder="Name" value={Name} onChange={(value) => this.setState({ Name: value })} />
-                        <Input className="input e_mail" placeholder="E-Mail" value={EMail} onChange={(value) => this.setState({ EMail: value })} />
+                        <Input required className="input name" placeholder="Name" value={Name} onChange={(value) => this.setState({ Name: value })}/>
+                        <Input required className="input e_mail" placeholder="E-Mail" value={EMail} onChange={(value) => this.setState({ EMail: value })}/>
                         {/* eslint-disable-next-line max-len */}
-                        <Input className="input adresse" placeholder="Adresse (optional)" value={Adress} onChange={(value) => this.setState({ Adress: value })} />
+                        <Input className="input adresse" placeholder="Adresse (optional)" value={Adress} onChange={(value) => this.setState({ Adress: value })}/>
                         {/* eslint-disable-next-line max-len */}
-                        <TextArea className="input kommentar" placeholder="Kommentar" autogrow value={Commentarie} onChange={(value) => this.setState({ Commentarie: value })} />
+                        <TextArea className="input kommentar" placeholder="Kommentar" autogrow value={Commentarie} onChange={(value) => this.setState({ Commentarie: value })}/>
                         {/* eslint-disable-next-line max-len */}
-                        <Input className="input link_der_seite" placeholder="Link der Seite" value={LinkoftheSite} onChange={(value) => this.setState({ LinkoftheSite: value })} />
+                        <Input className="input link_der_seite" placeholder="Link der Seite" value={LinkoftheSite} onChange={(value) => this.setState({ LinkoftheSite: value })}/>
                     </div>
                     <Button className="btn" onClick={this.send}>Absenden</Button>
                 </div>
