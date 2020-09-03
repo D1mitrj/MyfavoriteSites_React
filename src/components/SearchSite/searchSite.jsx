@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'chayns-components';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; // Look at the bottom, there is an explanation why you shouldnt delete this.
 import './searchSite.css';
 
 class searchSite extends React.Component {
@@ -10,6 +10,7 @@ class searchSite extends React.Component {
             SiteName: '',
             timeout: null,
         };
+        // binding methods here.
         this.searchSite = this.searchSite.bind(this);
     }
 
@@ -18,6 +19,7 @@ class searchSite extends React.Component {
         const { timeout } = this.state;
         this.setState({ SiteName: e });
 
+        // sets the time after every change to 500ms.
         if (timeout !== null) {
             clearTimeout(timeout);
         }
@@ -39,6 +41,7 @@ class searchSite extends React.Component {
     }
 }
 
+// when you delete this. You will habe a problem with the props of this code.
 searchSite.propTypes = {
     setSearchString: PropTypes.string.isRequired,
 };
