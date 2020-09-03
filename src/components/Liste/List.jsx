@@ -85,7 +85,7 @@ class List extends React.Component {
                         ? (
                             // creates the Elements for every fetch.
                             siteList.map((site) => (
-                                <div className="site">
+                                <div onClick={() => window.open(`http://chayns.net/${site.siteId}`)} className="site">
                                     <object className="SiteImage" data={`https://chayns.tobit.com/storage/${site.siteId}/Images/icon-57.png`} type="Image/png">
                                         {/* if an images show "Error 404" a alternative Picture will show up. */}
                                         <img className="SiteImage" src="https://chayns.tobit.com/storage/77892-13928/Images/icon-57.png" alt="fail"/>
