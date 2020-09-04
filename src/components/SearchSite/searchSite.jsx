@@ -26,6 +26,7 @@ class searchSite extends React.Component {
         this.setState({
             timeout:
                 setTimeout(() => {
+                    console.log(timeout);
                     setSearchString(e);
                 }, 500),
         });

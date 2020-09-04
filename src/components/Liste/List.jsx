@@ -27,7 +27,7 @@ class List extends React.Component {
     // when the user types a site with the same string will search for it.
     componentDidUpdate() {
         const { searchString } = this.props;
-        const { searchFilter } = this.state;
+        const { searchFilter, siteList } = this.state;
 
         if (searchString !== searchFilter) {
             this.setState({ searchFilter: searchString });
@@ -76,6 +76,17 @@ class List extends React.Component {
         }));
     }
 
+    renderButtons(isExpanded, siteList) {
+        if (siteList.length >= 20) {
+            return (
+                isExpanded
+                    ? <Button onClick={this.showless}>Weniger...</Button>
+                    : <Button onClick={this.showmore}>Mehr...</Button>
+            );
+        }
+        return null;
+    }
+
     render() {
         const { isExpanded, siteList } = this.state;
         return (
@@ -88,7 +99,7 @@ class List extends React.Component {
                                 <div onClick={() => window.open(`http://chayns.net/${site.siteId}`)} className="site">
                                     <object className="SiteImage" data={`https://chayns.tobit.com/storage/${site.siteId}/Images/icon-57.png`} type="Image/png">
                                         {/* if an images show "Error 404" a alternative Picture will show up. */}
-                                        <img className="SiteImage" src="https://chayns.tobit.com/storage/77892-13928/Images/icon-57.png" alt="fail"/>
+                                        <img className="SiteImage" src="https://chayns.tobit.com/storage/77892-13928/Images/icon-57.png" alt="fail" />
                                     </object>
                                     <p className="site__name">{site.appstoreName}</p>
                                 </div>
@@ -98,9 +109,7 @@ class List extends React.Component {
                 </div>
                 <div className="buttonDiv">
                     {/* changes to the needed button, if the elements shows more or less. */}
-                    {isExpanded
-                        ? <Button onClick={this.showless}>Weniger...</Button>
-                        : <Button onClick={this.showmore}>Mehr...</Button>}
+                    { this.renderButtons(isExpanded, siteList) }
                 </div>
             </div>
         );
